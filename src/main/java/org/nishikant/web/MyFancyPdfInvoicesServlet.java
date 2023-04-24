@@ -1,8 +1,7 @@
 package org.nishikant.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.nishikant.model.Invoice;
-import org.nishikant.service.InvoiceService;
+import org.nishikant.myfancypdfinvoices.Application;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +14,6 @@ import java.util.List;
 * to serve to online user.*/
 public class MyFancyPdfInvoicesServlet extends HttpServlet {
 
-    /*Dependencies for the GET and POST calls*/
-    private final InvoiceService invoiceService = new InvoiceService();
-    private final ObjectMapper objectMapper = new ObjectMapper();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         /*Can be application/json or application/xml as well*/
@@ -31,8 +27,8 @@ public class MyFancyPdfInvoicesServlet extends HttpServlet {
                             "</body>\n" +
                             "</html>");
         }else if(request.getRequestURI().equalsIgnoreCase("/invoices")){
-            List<Invoice> invoices = invoiceService.findAll();
-            String invoicesJSONs = objectMapper.writeValueAsString(invoices);
+            List<Invoice> invoices = Application.invoiceService.findAll();
+            String invoicesJSONs = Application.objectMapper.writeValueAsString(invoices);
 
             response.setContentType("application/json; charset=UTF-8");
             response.getWriter().print(invoicesJSONs);
@@ -46,10 +42,10 @@ public class MyFancyPdfInvoicesServlet extends HttpServlet {
             String userId = request.getParameter("user_id");
             Integer amount = Integer.valueOf(request.getParameter("amount"));
 
-            Invoice invoice = invoiceService.generateInvoicePdf(userId, amount);
+            Invoice invoice = Application.invoiceService.generateInvoicePdf(userId, amount);
 
             response.setContentType("application/json; charset=UTF-8");
-            String json = objectMapper.writeValueAsString(invoice);
+            String json = Application.objectMapper.writeValueAsString(invoice);
             response.getWriter().print(json);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
