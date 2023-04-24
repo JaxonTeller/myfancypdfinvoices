@@ -1,9 +1,10 @@
-package org.nishikant;
+package org.nishikant.myfancypdfinvoices;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.Wrapper;
+import org.nishikant.web.MyFancyPdfInvoicesServlet;
 
 public class ApplicationLauncher {
     public static void main(String[] args) throws LifecycleException {
