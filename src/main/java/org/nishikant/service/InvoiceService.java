@@ -1,9 +1,8 @@
 package org.nishikant.service;
 
-import com.fasterxml.jackson.core.Base64Variant;
 import org.nishikant.model.Invoice;
 import org.nishikant.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -18,9 +17,11 @@ public class InvoiceService {
     private List<Invoice> invoices = new CopyOnWriteArrayList<>();
 
     private final UserService userService;
+    private final String cdn;
 
-    public InvoiceService(UserService userService) {
+    public InvoiceService(UserService userService, @Value(value = "${cdn.url}") String cdn) {
         this.userService = userService;
+        this.cdn = cdn;
     }
 
     /*Post the construction of InvoiceService and after all it's dependencies are added perform the downloading*/
@@ -50,7 +51,7 @@ public class InvoiceService {
         if(user==null){
             throw new Exception("User not found");
         }
-        Invoice invoice = new Invoice(user.getId(), "www.google.com/samplepdfs", amount);
+        Invoice invoice = new Invoice(user.getId(),cdn+"/samplepdfs", amount);
         invoices.add(invoice);
         return invoice;
     }
