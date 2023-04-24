@@ -14,12 +14,11 @@ public class MyFirstServlet extends HttpServlet {
         /*Can be application/json or application/xml as well*/
         response.setContentType("text/html; charset=UTF-8");
         response.getWriter().print(
-                """
-                        <html>
-                        <body>
-                        <h1>Hello World</h1>
-                        <p>This is my very first, embedded Tomcat, HTML Page!</p>
-                        </body>
-                        </html>""");
+                "<html>\n" +
+                        "<body>\n" +
+                        "<h1>Hello World</h1>\n" +
+                        "<p>This is my very first, embedded Tomcat, HTML Page!</p>\n" +
+                        "</body>\n" +
+                        "</html>");
     }
 }
