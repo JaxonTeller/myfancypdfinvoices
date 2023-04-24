@@ -2,11 +2,12 @@ package org.nishikant.service;
 
 import org.nishikant.model.Invoice;
 import org.nishikant.model.User;
-import org.nishikant.myfancypdfinvoices.Application;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+@Component
 public class InvoiceService {
 
     //Thread-safe list
