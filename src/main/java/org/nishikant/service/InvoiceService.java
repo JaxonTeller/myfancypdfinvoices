@@ -6,6 +6,8 @@ import org.nishikant.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -19,6 +21,18 @@ public class InvoiceService {
 
     public InvoiceService(UserService userService) {
         this.userService = userService;
+    }
+
+    /*Post the construction of InvoiceService and after all it's dependencies are added perform the downloading*/
+    @PostConstruct
+    public void downloadPdfTemplate(){
+        System.out.println("Downloading PDF template from S3");
+    }
+
+    /*Before the graceful exit of Application context/ Spring container perform this*/
+    @PreDestroy
+    public void deletePdfTemplate(){
+        System.out.println("Deleting PDF template from cache/local");
     }
 
     public Invoice generateInvoicePdf(String userId, Integer amount) throws Exception {

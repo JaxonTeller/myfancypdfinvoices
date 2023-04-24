@@ -25,7 +25,11 @@ public class MyFancyPdfInvoicesServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(MyFancyPdfInvoicesConfiguration.class);
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(MyFancyPdfInvoicesConfiguration.class);
+
+        /*So that predestroy can run*/
+        ctx.registerShutdownHook();
+
         userService = ctx.getBean(UserService.class);
         invoiceService = ctx.getBean(InvoiceService.class);
         objectMapper = ctx.getBean(ObjectMapper.class);
