@@ -18,7 +18,7 @@ public class ApplicationLauncher {
         Context ctx = tomcat.addContext("", null);
 
         //telling server which servlet to reach out to, for serving content, when request comes to given mapping.
-        Wrapper servlet = Tomcat.addServlet(ctx, "myFirstServlet", new MyFirstServlet());
+        Wrapper servlet = Tomcat.addServlet(ctx, "myFirstServlet", new MyFancyPdfInvoicesServlet());
         //loads the servlet immediately, NOT on first request
         servlet.setLoadOnStartup(1);
         servlet.addMapping("/*");
