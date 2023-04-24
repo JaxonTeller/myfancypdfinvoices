@@ -16,7 +16,8 @@ public class Application {
     * dependency then we need to create it first and pass to UserService and then pass UserService to InvoiceService
     * making this application class to bulky and wildly
     * ---> that's where Spring comes in to replace this Application class*/
-    public static final UserService userService = new UserService();
+
+    /*public static final UserService userService = new UserService();
     public static final InvoiceService invoiceService = new InvoiceService(userService);
-    public static final ObjectMapper objectMapper = new ObjectMapper();
+    public static final ObjectMapper objectMapper = new ObjectMapper();*/
 }
