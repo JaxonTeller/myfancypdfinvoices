@@ -42,7 +42,12 @@ public class MyFancyPdfInvoicesServlet extends HttpServlet {
             String userId = request.getParameter("user_id");
             Integer amount = Integer.valueOf(request.getParameter("amount"));
 
-            Invoice invoice = Application.invoiceService.generateInvoicePdf(userId, amount);
+            Invoice invoice = null;
+            try {
+                invoice = Application.invoiceService.generateInvoicePdf(userId, amount);
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
 
             response.setContentType("application/json; charset=UTF-8");
             String json = Application.objectMapper.writeValueAsString(invoice);
