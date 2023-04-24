@@ -1,7 +1,12 @@
 package org.nishikant.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.nishikant.config.MyFancyPdfInvoicesConfiguration;
 import org.nishikant.model.Invoice;
-import org.nishikant.myfancypdfinvoices.Application;
+import org.nishikant.service.InvoiceService;
+import org.nishikant.service.UserService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +18,18 @@ import java.util.List;
 /*Servlet - A java class which can generated dynamic content
 * to serve to online user.*/
 public class MyFancyPdfInvoicesServlet extends HttpServlet {
+
+    private UserService userService;
+    private InvoiceService invoiceService;
+    private ObjectMapper objectMapper;
+
+    @Override
+    public void init() throws ServletException {
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(MyFancyPdfInvoicesConfiguration.class);
+        userService = ctx.getBean(UserService.class);
+        invoiceService = ctx.getBean(InvoiceService.class);
+        objectMapper = ctx.getBean(ObjectMapper.class);
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -27,8 +44,8 @@ public class MyFancyPdfInvoicesServlet extends HttpServlet {
                             "</body>\n" +
                             "</html>");
         }else if(request.getRequestURI().equalsIgnoreCase("/invoices")){
-            List<Invoice> invoices = Application.invoiceService.findAll();
-            String invoicesJSONs = Application.objectMapper.writeValueAsString(invoices);
+            List<Invoice> invoices = invoiceService.findAll();
+            String invoicesJSONs = objectMapper.writeValueAsString(invoices);
 
             response.setContentType("application/json; charset=UTF-8");
             response.getWriter().print(invoicesJSONs);
@@ -44,13 +61,13 @@ public class MyFancyPdfInvoicesServlet extends HttpServlet {
 
             Invoice invoice = null;
             try {
-                invoice = Application.invoiceService.generateInvoicePdf(userId, amount);
+                invoice = invoiceService.generateInvoicePdf(userId, amount);
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
 
             response.setContentType("application/json; charset=UTF-8");
-            String json = Application.objectMapper.writeValueAsString(invoice);
+            String json = objectMapper.writeValueAsString(invoice);
             response.getWriter().print(json);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
