@@ -1,7 +1,7 @@
 package org.nishikant.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.nishikant.config.MyFancyPdfInvoicesConfiguration;
+import org.nishikant.config.ApplicationConfiguration;
 import org.nishikant.model.Invoice;
 import org.nishikant.service.InvoiceService;
 import org.nishikant.service.UserService;
@@ -16,7 +16,7 @@ import java.util.List;
 
 /*Servlet - A java class which can generated dynamic content
 * to serve to online user.*/
-public class MyFancyPdfInvoicesServlet extends HttpServlet {
+public class InvoicesServlet extends HttpServlet {
 
     private UserService userService;
     private InvoiceService invoiceService;
@@ -24,7 +24,7 @@ public class MyFancyPdfInvoicesServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(MyFancyPdfInvoicesConfiguration.class);
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
 
         /*So that predestroy can run*/
         ctx.registerShutdownHook();

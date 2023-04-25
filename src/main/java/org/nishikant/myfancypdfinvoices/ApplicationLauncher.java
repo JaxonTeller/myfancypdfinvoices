@@ -4,8 +4,7 @@ import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.Wrapper;
-import org.nishikant.config.MyFancyPdfInvoicesConfiguration;
-import org.nishikant.web.MyFancyPdfInvoicesServlet;
+import org.nishikant.config.ApplicationConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -44,7 +43,7 @@ public class ApplicationLauncher {
     * it means indirectly your DispatcherServlet knows about Controller classes.*/
     public static WebApplicationContext createApplicationContext(ServletContext servletContext) {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.register(MyFancyPdfInvoicesConfiguration.class);
+        ctx.register(ApplicationConfiguration.class);
         ctx.setServletContext(servletContext);
         ctx.refresh();
         ctx.registerShutdownHook();
