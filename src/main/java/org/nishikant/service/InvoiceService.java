@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -41,6 +42,7 @@ public class InvoiceService {
         System.out.println("Deleting PDF template from cache/local");
     }
 
+    @Transactional
     public Invoice generateInvoicePdf(String userId, Integer amount) throws Exception {
         /*
         call's a 3rd party library which generates PDF from userId and amount
@@ -80,6 +82,7 @@ public class InvoiceService {
         return invoice;
     }
 
+    @Transactional
     public List<Invoice> findAll(){
         return jdbcTemplate.query("select id, user_id, pdf_url, amount from invoices", (resultSet, rowNum) -> {
             Invoice invoice = new Invoice();
