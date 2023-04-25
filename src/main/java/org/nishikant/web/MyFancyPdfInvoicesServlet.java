@@ -5,7 +5,6 @@ import org.nishikant.config.MyFancyPdfInvoicesConfiguration;
 import org.nishikant.model.Invoice;
 import org.nishikant.service.InvoiceService;
 import org.nishikant.service.UserService;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletException;
