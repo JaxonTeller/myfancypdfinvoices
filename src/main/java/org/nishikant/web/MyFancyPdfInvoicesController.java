@@ -5,6 +5,7 @@ import org.nishikant.model.Invoice;
 import org.nishikant.service.InvoiceService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class MyFancyPdfInvoicesController {
     }
 
     @PostMapping("/invoices")
-    public Invoice createInvoice(@RequestBody InvoiceDTO invoiceDTO) throws Exception {
+    public Invoice createInvoice(@RequestBody @Valid InvoiceDTO invoiceDTO) throws Exception {
         return this.invoiceService.generateInvoicePdf(invoiceDTO.getUserId(), invoiceDTO.getAmount());
     }
 }
