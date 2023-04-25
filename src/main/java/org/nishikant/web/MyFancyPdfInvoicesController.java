@@ -2,10 +2,7 @@ package org.nishikant.web;
 
 import org.nishikant.model.Invoice;
 import org.nishikant.service.InvoiceService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,8 +20,8 @@ public class MyFancyPdfInvoicesController {
         return this.invoiceService.findAll();
     }
 
-    @PostMapping("/invoices")
-    public Invoice createInvoice(@RequestParam("user_id") String userId, @RequestParam Integer amount) throws Exception {
+    @PostMapping("/invoices/{userId}/{amount}")
+    public Invoice createInvoice(@PathVariable String userId, @PathVariable Integer amount) throws Exception {
         return this.invoiceService.generateInvoicePdf(userId, amount);
     }
 }
