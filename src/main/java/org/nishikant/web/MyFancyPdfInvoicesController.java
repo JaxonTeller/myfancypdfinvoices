@@ -1,6 +1,6 @@
 package org.nishikant.web;
 
-import dto.InvoiceDTO;
+import org.nishikant.dto.InvoiceDTO;
 import org.nishikant.model.Invoice;
 import org.nishikant.service.InvoiceService;
 import org.springframework.validation.annotation.Validated;

@@ -1,4 +1,4 @@
-package dto;
+package org.nishikant.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
