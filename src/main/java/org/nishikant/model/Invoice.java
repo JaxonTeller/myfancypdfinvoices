@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
-/*Immutable Invoice*/
 public final class Invoice {
-    private final String id, userId, pdfUrl;
-    private final Integer amount;
+    private String id, userId, pdfUrl;
+    private Integer amount;
+
+    public Invoice(){}
 
     public Invoice(String userId, String pdfUrl, Integer amount) {
         this.id = UUID.randomUUID().toString();
@@ -15,7 +16,6 @@ public final class Invoice {
         this.pdfUrl = pdfUrl;
         this.amount = amount;
     }
-
 
     public String getId() {
         return id;
@@ -33,6 +33,22 @@ public final class Invoice {
 
     public Integer getAmount() {
         return amount;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setPdfUrl(String pdfUrl) {
+        this.pdfUrl = pdfUrl;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     @Override
