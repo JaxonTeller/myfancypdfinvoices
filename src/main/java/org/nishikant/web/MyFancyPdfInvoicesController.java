@@ -1,5 +1,6 @@
 package org.nishikant.web;
 
+import dto.InvoiceDTO;
 import org.nishikant.model.Invoice;
 import org.nishikant.service.InvoiceService;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,8 @@ public class MyFancyPdfInvoicesController {
         return this.invoiceService.findAll();
     }
 
-    @PostMapping("/invoices/{userId}/{amount}")
-    public Invoice createInvoice(@PathVariable String userId, @PathVariable Integer amount) throws Exception {
-        return this.invoiceService.generateInvoicePdf(userId, amount);
+    @PostMapping("/invoices")
+    public Invoice createInvoice(@RequestBody InvoiceDTO invoiceDTO) throws Exception {
+        return this.invoiceService.generateInvoicePdf(invoiceDTO.getUserId(), invoiceDTO.getAmount());
     }
 }
